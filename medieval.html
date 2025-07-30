@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medieval India | TimeStamps of India</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a6c8e; /* Deeper blue-grey */
+            --secondary-color: #e67e22; /* Vibrant orange */
+            --accent-color: #2ecc71;
+            --light-color: #f8faff; /* Very light blueish white */
+            --dark-color: #2c3e50; /* Darker blue-grey for footer */
+            --text-color: #444;
+            --shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 70px; /* Default padding for fixed navbar on larger screens */
+            overflow-x: hidden;
+        }
+        
+        /* Custom Navbar */
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+            z-index: 1000; /* Ensure navbar is on top */
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: white !important;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.2rem;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1rem;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        
+        .dropdown-item {
+            padding: 0.6rem 1.5rem;
+            transition: all 0.2s;
+            color: var(--dark-color);
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(230, 126, 34, 0.1);
+            color: var(--secondary-color);
+            padding-left: 1.8rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), 
+                        url('https://images.unsplash.com/photo-1579783900224-34027731215b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover; /* New image for medieval */
+            height: 60vh; /* Increased height to accommodate text */
+            min-height: 400px; /* Ensure a good minimum height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            text-align: center; /* Title remains centered */
+            animation: fadeInZoom 1.5s ease-out;
+            padding-top: 20px; /* Added internal padding to hero section */
+            padding-bottom: 20px; /* Added internal padding to hero section */
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(74, 108, 142, 0.4), rgba(230, 126, 34, 0.4));
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 15px;
+            max-width: 800px; /* Constrain text width */
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem; /* Adjusted margin */
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            animation: slideInUp 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        .hero-text {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            animation: slideInUp 1s ease-out 0.7s forwards; /* Slightly delayed animation */
+            opacity: 0;
+            line-height: 1.6;
+            padding: 0 10px; /* Small horizontal padding for text on smaller screens */
+            text-align: justify; /* Justify the text content */
+        }
+        
+        /* Section Titles */
+        .section-title {
+            position: relative;
+            margin-bottom: 4rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.8rem;
+            font-family: 'Playfair Display', serif;
+            animation: fadeIn 1.2s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background-color: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        /* New Event Section Style */
+        .event-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5rem;
+            padding: 3rem 0;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: var(--shadow);
+            overflow: hidden; /* For image border-radius */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .event-section.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .event-section:nth-child(even) {
+            flex-direction: row-reverse; /* Alternating layout */
+        }
+
+        .event-section-content {
+            flex: 1;
+            padding: 0 40px;
+            max-width: 55%; /* More space for content */
+        }
+
+        .event-section:nth-child(odd) .event-section-content {
+             padding-right: 20px; /* Adjust padding for visual balance */
+        }
+        .event-section:nth-child(even) .event-section-content {
+            padding-left: 20px; /* Adjust padding for visual balance */
+        }
+
+        .event-section-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 45%; /* Less space for image */
+            padding: 0 40px;
+        }
+
+        .event-section-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .event-section:hover .event-section-image img {
+            transform: scale(1.02);
+        }
+
+        .event-section-date {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .event-section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .event-section-description p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+        
+        .event-section-description p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin-right: 12px;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px) rotate(5deg);
+        }
+        
+        .copyright {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInZoom {
+            from {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 1199.98px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero-text {
+                font-size: 1.1rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .event-section-title {
+                font-size: 2.2rem;
+            }
+            .event-section-description p {
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 991.98px) {
+            body {
+                /* Adjust padding top for collapsed navbar height */
+                padding-top: 60px; /* Default for Bootstrap's collapsed navbar */
+            }
+            .navbar-collapse.show {
+                background-color: var(--primary-color); /* To make dropdown readable */
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-section {
+                height: auto; /* Allow height to adjust to content */
+                min-height: 380px; /* Maintain a good minimum height */
+                padding-top: 100px; /* Add internal padding to hero section */
+                padding-bottom: 50px; /* Add internal padding to hero section */
+            }
+            .hero-text {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .event-section {
+                flex-direction: column !important; /* Stack image and content */
+                padding: 2rem;
+                margin-bottom: 3rem;
+            }
+            .event-section-content,
+            .event-section-image {
+                max-width: 100%;
+                padding: 0;
+            }
+            .event-section-image {
+                margin-bottom: 25px; /* Space between image and text */
+            }
+            .event-section-title {
+                font-size: 2rem;
+            }
+            .event-section-date {
+                font-size: 1.15rem;
+            }
+            .event-section-description p {
+                font-size: 0.9rem;
+            }
+            /* Adjust padding for dropdown menu items for better touch on small screens */
+            .navbar-nav .dropdown-menu .dropdown-item {
+                padding: 0.75rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            body {
+                padding-top: 56px; /* Even smaller padding for very small screens (typical for mobile) */
+            }
+            .navbar-brand {
+                font-size: 1.7rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-section {
+                min-height: 320px; /* Further adjust min-height for mobile */
+                padding-top: 80px; /* Adjust internal padding for smaller screens */
+                padding-bottom: 40px; /* Adjust internal padding for smaller screens */
+            }
+            .hero-text {
+                font-size: 0.95rem;
+            }
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 3rem;
+            }
+            .event-section {
+                margin-bottom: 2.5rem;
+                padding: 1.5rem;
+            }
+            .event-section-title {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+            .event-section-date {
+                font-size: 1.05rem;
+                margin-bottom: 10px;
+            }
+            .event-section-description p {
+                font-size: 0.88rem;
+            }
+            .footer {
+                padding: 3rem 0 1.5rem;
+            }
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .hero-title {
+                font-size: 1.8rem; /* Adjusted for smaller screens */
+                white-space: normal; /* Allow text wrapping for better readability */
+                overflow: visible; /* Ensure text is not hidden */
+                text-overflow: unset; /* Remove ellipsis */
+            }
+            .hero-section {
+                min-height: 250px; /* Minimum height for very small screens */
+                padding-top: 70px; /* More padding adjustment */
+                padding-bottom: 30px; /* More padding adjustment */
+            }
+            .hero-text {
+                font-size: 0.88rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .event-section-title {
+                font-size: 1.6rem;
+            }
+            .event-section-description p {
+                font-size: 0.85rem;
+            }
+            .social-icons a {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+                margin-right: 8px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 1.6rem; /* Even smaller for very tiny screens */
+            }
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .event-section-title {
+                font-size: 1.4rem;
+            }
+            .hero-section {
+                min-height: 250px; /* Even smaller min-height for tiny screens */
+                padding-top: 60px; /* Adjusted padding */
+                padding-bottom: 25px; /* Adjusted padding */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Time<span>Stamps</span> of India</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="timeline.html">Timeline</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="erasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Historical Eras
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="erasDropdown">
+                            <li><a class="dropdown-item" href="ancient.html">Ancient India (3000 BCE - 550 CE)</a></li>
+                            <li><a class="dropdown-item active" href="medieval.html">Medieval India (550 CE - 1526 CE)</a></li>
+                            <li><a class="dropdown-item" href="modern.html">Modern India (1526 CE - Present)</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quiz.html">Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about_india.html">About india</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Medieval India (550 CE - 1526 CE)</h1>
+                <p class="hero-text">
+                    Step into the vibrant and dynamic era of Medieval India! This period witnessed the rise and fall of powerful empires, the fusion of diverse cultures, and significant developments in art, architecture, and religion. From the emergence of regional kingdoms to the establishment of the Delhi Sultanate and the flourishing of the Vijayanagara Empire, explore the fascinating journey of a subcontinent undergoing profound transformations.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <section id="medieval-events" class="my-5 py-4">
+            <h2 class="section-title">Key Moments and Dynasties in Medieval Indian History</h2>
+            <div class="medieval-events-container" id="medieval-events-container">
+                </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">Time<span>Stamps</span> of India</div>
+                    <p>Preserving and presenting India's historical legacy for future generations through comprehensive, accurate, and engaging content.</p>
+                    <div class="social-icons">
+                        <a href="https://x.com/DeepakBawa2803" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/deepak_.bawa/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/team-dr-93a056375/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Explore</h5>
+                    <ul class="footer-links">
+                        <li><a href="timeline.html">Timeline</a></li>
+                        <li><a href="ancient.html">Ancient Era</a></li>
+                        <li><li><a class="active" href="medieval.html">Medieval Era</a></li></li>
+                        <li><a href="modern.html">Modern Era</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="quiz.html">Quizzes</a></li>
+                        <li><a href="maps.html">Historical Maps</a></li>
+                        <li><a href="documents.html">Primary Sources</a></li>
+                        <li><a href="books.html">Recommended Books</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to receive weekly historical facts and updates.</p>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email" required>
+                            <button class="btn btn-primary btn-custom" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                    <p><i class="fas fa-envelope me-2"></i> contact@teamdr1928@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright text-center">
+               © 2025 MediSentry | Student's Project by Team DR from Chandigarh University
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const historicalEvents = [
+                { 
+                    date: "0606-01-01", 
+                    title: "Harsha's Empire Rises (c. 606-647 CE)", 
+                    description: `
+                        <p>Harshavardhana, commonly known as Harsha, established a vast empire in northern India, reigning from approximately 606 to 647 CE. His rule brought a period of relative peace and stability following the fragmentation of the Gupta Empire. Harsha was a significant patron of the arts, education, and literature, and was also an accomplished playwright himself. The detailed accounts of his reign and the prevailing socio-political conditions come largely from the Chinese Buddhist pilgrim Xuanzang, who visited India during this period.</p>
+                        <p>Harsha's empire was characterized by an effective administrative system and religious tolerance. Although he initially worshipped Surya and Shiva, he later converted to Buddhism. His efforts to unify disparate parts of northern India were notable, though his empire decentralized after his demise. This era is widely considered a crucial transitional phase between the classical ancient period and the emergence of early medieval regional kingdoms.</p>
+                    `, 
+                    era: "Medieval", 
+                    image: "img/Harsha's-Empire-Rises.jpg", // Placeholder image
+                    id: "harsha"
+                },
+                { 
+                    date: "0712-01-01", 
+                    title: "Arab Conquest of Sindh (712 CE)", 
+                    description: `
+                        <p>The Arab conquest of Sindh in 712 CE, led by Muhammad bin Qasim, marked the initial substantial Muslim incursion into the Indian subcontinent. While confined to the region of Sindh (part of modern-day Pakistan), this event was profoundly significant. It introduced Islamic rule and culture to India, laying the foundation for subsequent Muslim dynasties and a long period of cultural interaction.</p>
+                        <p>The conquest was motivated by a combination of economic interests, primarily control over lucrative trade routes, and punitive expeditions against local pirates. Despite its limited direct political reach, it fostered considerable cultural exchange. Indian advancements in fields such as mathematics, astronomy, and medicine were transmitted to the Arab world. This era initiated a sustained interaction between Islamic and Indian civilizations, profoundly influencing the development of language, art, and social structures in the region.</p>
+                    `, 
+                    era: "Medieval", 
+                    image: "img/arab.jpg", // Placeholder image
+                    id: "sindh"
+                },
+                { 
+                    date: "1001-01-01", 
+                    title: "Mahmud of Ghazni's Invasions (c. 1001-1027 CE)", 
+                    description: `
+                        <p>Mahmud of Ghazni, a Turkic ruler from the Ghaznavid dynasty, launched a series of seventeen devastating raids into the Indian subcontinent between approximately 1001 and 1027 CE. His primary objectives were to amass wealth by plundering the rich temples and cities of India to finance his extensive military campaigns in Central Asia, and to a lesser extent, to propagate Islam.</p>
+                        <p>His campaigns systematically targeted affluent centers such as Somnath, Mathura, and Kannauj, resulting in widespread destruction and the accumulation of immense treasures. While Mahmud did not establish long-term political control in India beyond Punjab, his repeated invasions considerably weakened the existing Indian kingdoms, thereby facilitating subsequent Turkic conquests. His actions remain a highly debated topic in Indian history, with perspectives ranging from viewing him as a destroyer of Hindu cultural heritage to a pragmatic ruler driven by strategic and economic ambitions.</p>
+                    `, 
+                    era: "Medieval", 
+                    image: "img/Mahmud.jpg", // Placeholder image
+                    id: "ghazni"
+                },
+                { 
+                    date: "1206-01-01", 
+                    title: "Establishment of the Delhi Sultanate (1206 CE)", 
+                    description: `
+                        <p>The Delhi Sultanate represents a succession of five distinct Muslim dynasties that governed a substantial portion of the Indian subcontinent from Delhi, commencing in 1206 CE. This period began with the establishment of the Mamluk (Slave) Dynasty by Qutb al-Din Aibak, a former general under Muhammad of Ghor.</p>
+                        <p>Over the next three centuries, the Sultanate expanded its dominion, introducing novel administrative systems, distinctive architectural styles (known as Indo-Islamic architecture), and significant cultural influences. Dynasties such as the Khiljis, Tughlaqs, Sayyids, and Lodis each left an indelible mark, contending with internal uprisings and external aggressions. Despite periods of instability, the Delhi Sultanate played a pivotal role in shaping the political and cultural landscape of medieval India, facilitating the dissemination of Islam and contributing to the emergence of new languages like Urdu.</p>
+                    `, 
+                    era: "Medieval", 
+                    image: "img/Sultanate.webp", // Placeholder image
+                    id: "delhi-sultanate"
+                },
+                { 
+                    date: "1336-01-01", 
+                    title: "Rise of the Vijayanagara Empire (1336 CE)", 
+                    description: `
+                        <p>The Vijayanagara Empire, founded in 1336 CE by Harihara I and Bukka Raya I, emerged as a formidable Hindu empire in South India, serving as a crucial bulwark against the southward expansion of Muslim sultanates. Located in present-day Karnataka, its capital, Hampi, evolved into a magnificent metropolis and a vibrant hub of art, architecture, and culture.</p>
+                        <p>This empire became a custodian of Hindu traditions and arts, ushering in a golden age of literature across Kannada, Telugu, Tamil, and Sanskrit languages. Its rulers were renowned patrons of temple construction, leading to the creation of elaborate complexes like the Virupaksha Temple. The empire prospered through extensive trade, particularly in spices and textiles. Despite persistent conflicts with the Bahmani Sultanate and its successor states, Vijayanagara maintained its dominance for over two centuries until its decisive decline following the Battle of Talikota in 1565 CE.</p>
+                    `, 
+                    era: "Medieval", 
+                    image: "img/Vijayanagara.webp", // Placeholder image
+                    id: "vijayanagara"
+                },
+                { 
+                    date: "1400-01-01", 
+                    title: "Bhakti and Sufi Movements Flourish (c. 14th-17th Centuries)", 
+                    description: `
+                        <p>Throughout the Medieval period, India experienced the profound and widespread growth of the Bhakti and Sufi movements. The Bhakti movement, which originated in South India, emphasized fervent devotion (bhakti) to a personal God, advocating for a spiritual path that transcended caste distinctions, rigid religious rituals, and social creed. Influential saints such as Ramananda, Kabir, Nanak (the revered founder of Sikhism), Chaitanya Mahaprabhu, and Mirabai propagated their teachings in vernacular languages, making spiritual wisdom accessible to the common populace.</p>
+                        <p>Concurrently, the Sufi movement, a mystical and ascetic dimension of Islam, gained considerable traction. Sufi saints like Khwaja Moinuddin Chishti and Nizamuddin Auliya championed principles of love, compassion, and inter-religious harmony, attracting adherents from both Hindu and Muslim communities. Both movements contributed significantly to social reform, fostering a spirit of inclusiveness and challenging entrenched orthodoxies, ultimately leading to a rich synthesis of diverse religious and cultural traditions.</p>
+                    `, 
+                    era: "Medieval", 
+                    image: "img/Flourish.avif", // Placeholder image
+                    id: "bhakti-sufi"
+                },
+                { 
+                    date: "1526-04-21", 
+                    title: "First Battle of Panipat (April 21, 1526)", 
+                    description: `
+                        <p>The First Battle of Panipat, fought on April 21, 1526, near present-day Panipat in Haryana, marked a pivotal turning point in Indian history. This decisive engagement took place between the invading forces of Babur, who would go on to found the Mughal Empire, and the considerably larger army of the Lodi Dynasty, led by its Sultan of Delhi, Ibrahim Lodi.</p>
+                        <p>Babur's victory, despite being significantly outnumbered, was largely attributable to his superior military strategies, including the innovative and effective deployment of gunpowder artillery and the sophisticated 'tulughma' (flanking) maneuver. This critical battle effectively ended the Delhi Sultanate's reign and heralded the commencement of the Mughal Empire in India, ushering in an unprecedented era of centralized administration, comprehensive reforms, and a rich Indo-Persian cultural synthesis that would endure for over three centuries.</p>
+                    `, 
+                    era: "Medieval", 
+                    image: "img/Panipat.jpg", // Placeholder image
+                    id: "panipat"
+                }
+            ];
+
+            function formatDateForDisplay(isoDateString) {
+                const parts = isoDateString.split('-');
+                let year = parseInt(parts[0]);
+                const month = parseInt(parts[1]) - 1; 
+                const day = parseInt(parts[2]);
+
+                if (year < 0) {
+                    return `${Math.abs(year)} BCE`;
+                } else if (year >= 550 && year <= 1526) { // Specific range for Medieval India CE dates
+                     const dateObj = new Date(year, month, day);
+                     const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                     // Only show month and day if it's a specific date within the era, otherwise just year
+                     if (isoDateString.endsWith('-01-01') || isoDateString.endsWith('-01')) { // Heuristic for year-only dates
+                        return `${year} CE`;
+                     }
+                     return dateObj.toLocaleDateString('en-US', options) + ' CE';
+                }
+                return isoDateString; 
+            }
+
+            function sortEvents(events) {
+                return events.sort((a, b) => new Date(a.date) - new Date(b.date));
+            }
+
+            function renderEventSections(eventsToRender) {
+                const container = document.getElementById('medieval-events-container');
+                container.innerHTML = ''; 
+
+                eventsToRender.forEach((event, index) => {
+                    const section = document.createElement('div');
+                    section.classList.add('event-section');
+                    section.id = event.id; // Set ID for direct linking
+
+                    const contentDiv = document.createElement('div');
+                    contentDiv.classList.add('event-section-content');
+                    contentDiv.innerHTML = `
+                        <h4 class="event-section-date">${formatDateForDisplay(event.date)}</h4>
+                        <h3 class="event-section-title">${event.title}</h3>
+                        <div class="event-section-description">${event.description}</div>
+                    `;
+
+                    const imageDiv = document.createElement('div');
+                    imageDiv.classList.add('event-section-image');
+                    if (event.image) {
+                        imageDiv.innerHTML = `<img src="${event.image}" alt="${event.title}">`;
+                    }
+
+                    // Append content and image based on odd/even index for alternating layout
+                    if (index % 2 === 0) {
+                        section.appendChild(imageDiv);
+                        section.appendChild(contentDiv);
+                    } else {
+                        section.appendChild(contentDiv);
+                        section.appendChild(imageDiv);
+                    }
+                    
+                    container.appendChild(section);
+                });
+            }
+
+            // Filter for Medieval events
+            const medievalEvents = historicalEvents.filter(event => event.era === "Medieval");
+
+            // Initial render with filtered events
+            renderEventSections(sortEvents(medievalEvents));
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3 // Trigger when 30% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        // Optionally stop observing once animated
+                        observer.unobserve(entry.target); // Unobserve after animation to prevent re-triggering
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all event sections
+            document.querySelectorAll('.event-section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Hero title and text animation
+            const heroTitle = document.querySelector('.hero-title');
+            const heroText = document.querySelector('.hero-text');
+            const sectionTitle = document.querySelector('.section-title');
+
+            // Apply animations if elements exist
+            if (heroTitle) {
+                heroTitle.style.animation = 'slideInUp 1s ease-out 0.5s forwards';
+            }
+            if (heroText) {
+                heroText.style.animation = 'slideInUp 1s ease-out 0.7s forwards';
+            }
+            if (sectionTitle) {
+                sectionTitle.style.animation = 'fadeIn 1.2s ease-out 0.2s forwards';
+            }
+
+            // Initialize Bootstrap tooltips (if any are added)
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Smooth scrolling for anchor links (if any are added, e.g., in a table of contents)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80, // Adjust for fixed navbar
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Navbar scroll effect - keeping the existing logic as it's for visual change on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar-custom');
+                if (window.scrollY > 50) {
+                    navbar.style.padding = '0.5rem 1rem';
+                    navbar.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.15)';
+                } else {
+                    navbar.style.padding = '0.8rem 1rem';
+                    navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

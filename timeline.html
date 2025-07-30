@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline of India | TimeStamps of India</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a5a78;
+            --secondary-color: #e67e22;
+            --accent-color: #2ecc71;
+            --light-color: #f9f9f9;
+            --dark-color: #333;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 70px; /* For fixed navbar */
+        }
+        
+        /* Custom Navbar */
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.2rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+        }
+        
+        .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(230, 126, 34, 0.1);
+            color: var(--secondary-color);
+            padding-left: 1.8rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1524492412937-b33874b7a98f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 40vh; /* Shorter for timeline page */
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            text-align: center; /* Center content */
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(58, 90, 120, 0.3), rgba(230, 126, 34, 0.3));
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%; /* Ensure content spans width */
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0; /* No margin below if only title */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            animation-delay: 0.2s;
+        }
+        
+        /* Section Titles */
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        /* Table Timeline Specific Styles */
+        .timeline-table-container {
+            max-height: 800px; /* Adjust as needed for desired scroll height */
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            background-color: white;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .timeline-table th, .timeline-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .timeline-table th {
+            background-color: var(--primary-color);
+            color: white;
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 2; /* Ensure it stays above content */
+        }
+
+        .timeline-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .timeline-table tbody tr.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-table td.timeline-date {
+            font-weight: 600;
+            color: var(--primary-color);
+            white-space: nowrap; /* Prevent date from wrapping */
+            width: 150px; /* Fixed width for date column */
+        }
+        
+        .timeline-table td.timeline-event h4 {
+            font-size: 1.25rem;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .timeline-table td.timeline-event p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Custom Button */
+        .btn-custom {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-custom:hover {
+            background-color: #d35400;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+        }
+        
+        .btn-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn-custom:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        .btn-outline-custom {
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            background-color: transparent;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-custom:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+        }
+        
+        /* Animation Keyframes */
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1199.98px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 991.98px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .timeline-table-container {
+                max-height: 600px; /* Adjust for smaller screens */
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-section {
+                height: 30vh; /* Even shorter for smaller screens */
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .timeline-table th, .timeline-table td {
+                padding: 10px;
+            }
+
+            .timeline-table td.timeline-date {
+                font-size: 0.9rem;
+                width: 100px;
+            }
+
+            .timeline-table td.timeline-event h4 {
+                font-size: 1.1rem;
+            }
+
+            .timeline-table td.timeline-event p {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-section {
+                height: 25vh;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .btn-custom, .btn-outline-custom {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .timeline-table td.timeline-date {
+                width: 80px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Time<span>Stamps</span> of India</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="timeline.html">Timeline</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="erasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Historical Eras
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="erasDropdown">
+                            <li><a class="dropdown-item" href="ancient.html">Ancient India (3000 BCE - 550 CE)</a></li>
+                            <li><a class="dropdown-item" href="medieval.html">Medieval India (550 CE - 1526 CE)</a></li>
+                            <li><a class="dropdown-item" href="modern.html">Modern India (1526 CE - Present)</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quiz.html">Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about_india.html">About india</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title animate__animated animate__fadeInDown">Timeline of Indian History</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <section id="timeline-main" class="my-5 py-4">
+            <h2 class="section-title mb-5 animate__animated animate__fadeIn">Key Moments Throughout History</h2>
+            <div class="timeline-table-container" id="timeline-table-container">
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Event</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timeline-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">Time<span>Stamps</span> of India</div>
+                    <p>Preserving and presenting India's historical legacy for future generations through comprehensive, accurate, and engaging content.</p>
+                    <div class="social-icons">
+                        <a href="https://x.com/DeepakBawa2803" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/deepak_.bawa/" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/team-dr-93a056375/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Explore</h5>
+                    <ul class="footer-links">
+                        <li><a href="timeline.html">Timeline</a></li>
+                        <li><a href="ancient.html">Ancient Era</a></li>
+                        <li><a href="medieval.html">Medieval Era</a></li>
+                        <li><a href="modern.html">Modern Era</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="quiz.html">Quizzes</a></li>
+                        <li><a href="maps.html">Historical Maps</a></li>
+                        <li><a href="documents.html">Primary Sources</a></li>
+                        <li><a href="books.html">Recommended Books</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to receive weekly historical facts and updates.</p>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email" required>
+                            <button class="btn btn-custom" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                    <p><i class="fas fa-envelope me-2"></i> contact@teamdr1928@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright text-center">
+               © 2025 MediSentry | Student's Project by Team DR from Chandigarh University
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const historicalEvents = [
+                { 
+                    date: "3300-01-01", 
+                    title: "Indus Valley Civilization Begins", 
+                    description: "One of the world's earliest urban civilizations flourished in the basins of the Indus River, known for its advanced city planning, drainage systems, and sophisticated crafts.", 
+                    era: "Ancient", 
+                    image: "img/indus-valley.jpg",
+                    link: "ancient.html#indus"
+                },
+                { 
+                    date: "1500-01-01", 
+                    title: "Vedic Period Begins", 
+                    description: "The period when the Vedas, the sacred texts of Hinduism, were composed. This era laid the foundations of Hindu philosophy, social structures (Varna system), and religious practices.", 
+                    era: "Ancient", 
+                    image: "img/vedic-period.jpg",
+                    link: "ancient.html#vedic"
+                },
+                { 
+                    date: "0563-01-01", 
+                    title: "Birth of Siddhartha Gautama (Buddha)", 
+                    description: "Born in Lumbini (modern-day Nepal), Siddhartha Gautama founded Buddhism, a major world religion centered on the Four Noble Truths and the Eightfold Path to liberation from suffering.", 
+                    era: "Ancient", 
+                    image: "img/buddha.jpg",
+                    link: "ancient.html#buddha"
+                },
+                { 
+                    date: "0540-01-01", 
+                    title: "Birth of Mahavira", 
+                    description: "The 24th and last Tirthankara of Jainism, Mahavira systematized and revitalized the ancient Jain philosophy. His teachings emphasize non-violence (Ahimsa), truthfulness, and asceticism.", 
+                    era: "Ancient", 
+                    image: "img/mahavira.jpg",
+                    link: "ancient.html#mahavira"
+                },
+                { 
+                    date: "0322-01-01", 
+                    title: "Establishment of the Maurya Empire", 
+                    description: "Chandragupta Maurya founded India's first major empire, unifying much of the Indian subcontinent under a single administration. The empire reached its zenith under his grandson, Ashoka.", 
+                    era: "Ancient", 
+                    image: "img/Chandragupta-Maurya.jpg",
+                    link: "ancient.html#maurya"
+                },
+                { 
+                    date: "0260-01-01", 
+                    title: "Ashoka Embraces Buddhism", 
+                    description: "After the bloody Kalinga War, Emperor Ashoka renounced violence and converted to Buddhism, dedicating his reign to the propagation of dharma. He erected edicts throughout his empire.", 
+                    era: "Ancient", 
+                    image: "img/ashoka.jpg",
+                    link: "ancient.html#ashoka"
+                },
+                { 
+                    date: "0320-01-01", 
+                    title: "Gupta Empire Rises (Golden Age)", 
+                    description: "Considered the 'Golden Age of India,' the Gupta period saw significant advancements in science, mathematics (including the invention of the decimal system and zero), astronomy, art, and literature.", 
+                    era: "Ancient", 
+                    image: "img/gupta.jpg",
+                    link: "ancient.html#gupta"
+                },
+                { 
+                    date: "0606-01-01", 
+                    title: "Reign of Harsha", 
+                    description: "Emperor Harsha Vardhana ruled a vast empire in North India, promoting Buddhism but also tolerant of other faiths. His reign is noted for the visit of Chinese Buddhist pilgrim Xuanzang.", 
+                    era: "Medieval", 
+                    image: "img/harsha.jpg",
+                    link: "medieval.html#harsha"
+                },
+                { 
+                    date: "0712-01-01", 
+                    title: "Arab Conquest of Sindh", 
+                    description: "Muhammad bin Qasim's conquest of Sindh marked the first major Islamic incursion into the Indian subcontinent, leading to the establishment of Muslim rule in the region.", 
+                    era: "Medieval", 
+                    image: "img/sindh-conquest.jpg",
+                    link: "medieval.html#sindh"
+                },
+                { 
+                    date: "1000-01-01", 
+                    title: "Invasions by Mahmud of Ghazni", 
+                    description: "Mahmud of Ghazni conducted numerous raids into North India, primarily to plunder wealth from temples. His invasions paved the way for later Turkish conquests.", 
+                    era: "Medieval", 
+                    image: "img/ghazni.jpg",
+                    link: "medieval.html#ghazni"
+                },
+                { 
+                    date: "1192-01-01", 
+                    title: "Second Battle of Tarain", 
+                    description: "Muhammad Ghori's decisive victory over Prithviraj Chauhan established firm Muslim rule in North India and laid the foundation for the Delhi Sultanate.", 
+                    era: "Medieval", 
+                    image: "img/tarain.jpg",
+                    link: "medieval.html#tarain"
+                },
+                { 
+                    date: "1206-01-01", 
+                    title: "Establishment of Delhi Sultanate", 
+                    description: "Qutb al-Din Aibak established the Delhi Sultanate, a series of five distinct dynasties that ruled large parts of the Indian subcontinent from Delhi.", 
+                    era: "Medieval", 
+                    image: "img/delhi-sultanate.jpg",
+                    link: "medieval.html#delhi-sultanate"
+                },
+                { 
+                    date: "1336-01-01", 
+                    title: "Foundation of Vijayanagara Empire", 
+                    description: "Founded by Harihara I and Bukka Raya I, this powerful South Indian empire resisted Muslim expansion and became a center of Hindu culture, art, and architecture.", 
+                    era: "Medieval", 
+                    image: "img/vijayanagara.jpg",
+                    link: "medieval.html#vijayanagara"
+                },
+                { 
+                    date: "1469-01-01", 
+                    title: "Birth of Guru Nanak Dev", 
+                    description: "The founder of Sikhism, Guru Nanak's teachings emphasized monotheism, equality, and selfless service, laid the foundation for a new spiritual tradition in Punjab.", 
+                    era: "Medieval", 
+                    image: "img/guru-nanak.jpg",
+                    link: "medieval.html#guru-nanak"
+                },
+                { 
+                    date: "1498-01-01", 
+                    title: "Vasco da Gama Arrives in Calicut", 
+                    description: "Portuguese explorer Vasco da Gama's arrival marked the beginning of European maritime trade with India and opened the sea route from Europe to Asia, fundamentally altering global trade patterns.", 
+                    era: "Medieval", 
+                    image: "img/vasco-da-gama.jpg",
+                    link: "medieval.html#vasco-da-gama"
+                },
+                { 
+                    date: "1526-01-01", 
+                    title: "First Battle of Panipat (Mughal Empire)", 
+                    description: "Babur's victory over Ibrahim Lodi established the Mughal Empire in India, beginning one of the most influential and prosperous periods in Indian history.", 
+                    era: "Modern", 
+                    image: "img/panipat.jpg",
+                    link: "modern.html#panipat"
+                },
+                { 
+                    date: "1600-01-01", 
+                    title: "Formation of East India Company", 
+                    description: "The British East India Company was granted a royal charter, laying the groundwork for British commercial and later political dominance in India.", 
+                    era: "Modern", 
+                    image: "img/eic.jpg",
+                    link: "modern.html#eic"
+                },
+                { 
+                    date: "1757-01-01", 
+                    title: "Battle of Plassey", 
+                    description: "The East India Company's victory over the Nawab of Bengal, Robert Clive, effectively established British political control over Bengal, a pivotal moment in the British conquest of India.", 
+                    era: "Modern", 
+                    image: "img/plassey.jpg",
+                    link: "modern.html#plassey"
+                },
+                { 
+                    date: "1857-01-01", 
+                    title: "Indian Rebellion of 1857", 
+                    description: "A major uprising against British rule, often called India's First War of Independence. It led to the dissolution of the East India Company and direct British Crown rule.", 
+                    era: "Modern", 
+                    image: "img/rebellion.jpg",
+                    link: "modern.html#rebellion"
+                },
+                { 
+                    date: "1885-01-01", 
+                    title: "Formation of Indian National Congress", 
+                    description: "Established by Allan Octavian Hume, the INC became the primary vehicle for India's independence movement, advocating for greater Indian representation and self-rule.", 
+                    era: "Modern", 
+                    image: "img/inc.jpg",
+                    link: "modern.html#inc"
+                },
+                { 
+                    date: "1919-04-13", 
+                    title: "Jallianwala Bagh Massacre", 
+                    description: "British troops under General Dyer fired on a peaceful gathering in Amritsar, killing hundreds. This brutal event intensified the independence movement.", 
+                    era: "Modern", 
+                    image: "img/jallianwala.jpg",
+                    link: "modern.html#jallianwala"
+                },
+                { 
+                    date: "1947-08-15", 
+                    title: "Indian Independence and Partition", 
+                    description: "India gained independence from British rule, but the subcontinent was partitioned into India and Pakistan, leading to mass migrations and communal violence.", 
+                    era: "Modern", 
+                    image: "img/independence.jpg",
+                    link: "modern.html#independence"
+                },
+                { 
+                    date: "1950-01-26", 
+                    title: "Indian Republic Day", 
+                    description: "The Constitution of India came into effect, making India a sovereign democratic republic. Dr. Rajendra Prasad became the first President of India.", 
+                    era: "Modern", 
+                    image: "img/republic-day.jpg",
+                    link: "modern.html#republic"
+                },
+                { 
+                    date: "1965-01-01", 
+                    title: "Indo-Pak War of 1965", 
+                    description: "A major armed conflict between India and Pakistan over Kashmir and other border disputes, ending in a UN-mandated ceasefire.", 
+                    era: "Modern", 
+                    image: "img/indo-pak-1965.jpg",
+                    link: "modern.html#indo-pak-65"
+                },
+                { 
+                    date: "1971-01-01", 
+                    title: "Bangladesh Liberation War (Indo-Pak War of 1971)", 
+                    description: "India's intervention in the Bangladesh Liberation War led to the creation of Bangladesh and a decisive military victory for India over Pakistan.", 
+                    era: "Modern", 
+                    image: "img/bangladesh-war.jpg",
+                    link: "modern.html#bangladesh-war"
+                },
+                { 
+                    date: "1974-05-18", 
+                    title: "Pokhran-I (Smiling Buddha)", 
+                    description: "India conducted its first successful nuclear weapons test at Pokhran, Rajasthan, becoming the sixth nation to possess nuclear weapons capability.", 
+                    era: "Modern", 
+                    image: "img/pokhran.jpg",
+                    link: "modern.html#pokhran1"
+                },
+                { 
+                    date: "1991-01-01", 
+                    title: "Economic Reforms Begin", 
+                    description: "Under Prime Minister P.V. Narasimha Rao and Finance Minister Manmohan Singh, India initiated sweeping economic liberalization reforms, opening its economy to global markets.", 
+                    era: "Modern", 
+                    image: "img/economic-reforms.jpg",
+                    link: "modern.html#economic-reforms"
+                },
+                { 
+                    date: "1999-01-01", 
+                    title: "Kargil War", 
+                    description: "An armed conflict between India and Pakistan in the Kargil district of Jammu and Kashmir. Indian forces successfully recaptured posts occupied by Pakistani infiltrators.", 
+                    era: "Modern", 
+                    image: "img/kargil.jpg",
+                    link: "modern.html#kargil"
+                },
+                { 
+                    date: "2008-11-26", 
+                    title: "Mumbai Terror Attacks", 
+                    description: "A series of coordinated terrorist attacks across Mumbai by Pakistan-based militants lasted four days, resulting in significant casualties and widespread destruction.", 
+                    era: "Modern", 
+                    image: "img/mumbai-attacks.jpg",
+                    link: "modern.html#mumbai-attacks"
+                },
+                { 
+                    date: "2014-05-26", 
+                    title: "Narendra Modi Becomes Prime Minister", 
+                    description: "Narendra Modi of the Bharatiya Janata Party (BJP) became Prime Minister, marking a significant shift in Indian politics and ushering in an era of strong economic and social policy focus.", 
+                    era: "Modern", 
+                    image: "img/modi.jpg",
+                    link: "modern.html#modi"
+                },
+                 { 
+                    date: "2016-11-08", 
+                    title: "Demonetisation Announcement", 
+                    description: "Indian government announced the demonetisation of all ₹500 and ₹1,000 banknotes, aiming to curb black money, counterfeit currency, and terrorism financing.", 
+                    era: "Modern", 
+                    image: "img/demonetisation.jpg",
+                    link: "modern.html#demonetisation"
+                },
+                { 
+                    date: "2017-07-01", 
+                    title: "Goods and Services Tax (GST) Implemented", 
+                    description: "A landmark indirect tax reform, GST replaced multiple central and state taxes, aiming to create a unified national market and simplify the tax structure.", 
+                    era: "Modern", 
+                    image: "img/gst.jpg",
+                    link: "modern.html#gst"
+                },
+                { 
+                    date: "2019-08-05", 
+                    title: "Abrogation of Article 370 in Jammu & Kashmir", 
+                    description: "The Indian government revoked the special status of Jammu and Kashmir, converting it into two Union Territories: Jammu and Kashmir, and Ladakh.", 
+                    era: "Modern", 
+                    image: "img/article370.jpg",
+                    link: "modern.html#article370"
+                },
+                { 
+                    date: "2020-03-24", 
+                    title: "Nationwide COVID-19 Lockdown", 
+                    description: "India imposed one of the world's largest and strictest lockdowns to combat the spread of the COVID-19 pandemic, significantly impacting public life and the economy.", 
+                    era: "Modern", 
+                    image: "img/covid-lockdown.jpg",
+                    link: "modern.html#covid-lockdown"
+                },
+                { 
+                    date: "2023-08-23", 
+                    title: "Chandrayaan-3 Moon Landing", 
+                    description: "India successfully landed its Chandrayaan-3 spacecraft on the lunar south pole, becoming the fourth country to achieve a soft landing on the Moon and the first to reach the lunar south pole.", 
+                    era: "Modern", 
+                    image: "img/chandrayaan3.jpg",
+                    link: "modern.html#chandrayaan3"
+                }
+            ];
+
+            function formatDateForDisplay(isoDateString) {
+                const parts = isoDateString.split('-');
+                let year = parseInt(parts[0]);
+                const month = parseInt(parts[1]) - 1; // Months are 0-indexed in JS Date
+                const day = parseInt(parts[2]);
+
+                if (year < 0) {
+                    return `${Math.abs(year)} BCE`;
+                } else if (year >= 1 && year <= 999) {
+                    // For years like 0563, display as 563 CE
+                    return `${year} CE`;
+                } else if (year < 10000) {
+                     // For dates like 1947-08-15, display as August 15, 1947
+                     const dateObj = new Date(year, month, day);
+                     const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                     return dateObj.toLocaleDateString('en-US', options);
+                }
+                return isoDateString; // Fallback
+            }
+
+
+            function sortEvents(events) {
+                return events.sort((a, b) => new Date(a.date) - new Date(b.date));
+            }
+
+            function renderTimeline(eventsToRender) {
+                const timelineTableBody = document.getElementById('timeline-table-body');
+                timelineTableBody.innerHTML = ''; // Clear existing content
+
+                eventsToRender.forEach((event, index) => {
+                    const row = document.createElement('tr');
+                    row.classList.add('animate__animated', 'animate__fadeInUp');
+                    
+                    // Date cell
+                    const dateCell = document.createElement('td');
+                    dateCell.classList.add('timeline-date');
+                    dateCell.textContent = formatDateForDisplay(event.date); // Format date for display
+                    row.appendChild(dateCell);
+
+                    // Event details cell
+                    const eventCell = document.createElement('td');
+                    eventCell.classList.add('timeline-event');
+                    eventCell.innerHTML = `
+                        <h4>${event.title}</h4>
+                        <p>${event.description}</p>
+                        ${event.link ? `<a href="${event.link}" class="btn btn-sm btn-custom">Learn More</a>` : ''}
+                    `;
+                    row.appendChild(eventCell);
+
+                    timelineTableBody.appendChild(row);
+                });
+
+                // Re-apply animation logic for newly rendered items
+                animateOnScroll(); 
+            }
+
+            // Animate elements on scroll
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('#timeline-table-body tr');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('animate');
+                    }
+                });
+            };
+
+            // Initial render
+            renderTimeline(sortEvents(historicalEvents));
+
+            // Initialize animation on load
+            window.addEventListener('load', animateOnScroll);
+            
+            // Animate on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Initialize Bootstrap tooltips (if any are added)
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Smooth scrolling for anchor links (if any are added)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar-custom');
+                if (window.scrollY > 50) {
+                    navbar.style.padding = '0.5rem 1rem';
+                    navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                } else {
+                    navbar.style.padding = '0.8rem 1rem';
+                    navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                }
+            });
+
+            // Add animation to all elements with animate__animated class
+            const animateElements = document.querySelectorAll('.animate__animated');
+            animateElements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

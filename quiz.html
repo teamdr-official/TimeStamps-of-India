@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern India Quiz | TimeStamps of India</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #5b5a70; /* Muted deep blue-grey for modern */
+            --secondary-color: #2e8b57; /* Sea green/emerald for modern accent */
+            --accent-color: #8c735d; /* Muted earthy tone */
+            --light-color: #f8faff; /* Very light blueish white */
+            --dark-color: #2c3e50; /* Darker blue-grey for footer */
+            --text-color: #444;
+            --shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            --card-hover-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 70px; /* Default padding for fixed navbar on larger screens */
+            overflow-x: hidden;
+        }
+
+        /* Custom Navbar */
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+            z-index: 1000; /* Ensure navbar is on top */
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: white !important;
+            transition: all 0.3s;
+        }
+
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.2rem;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .dropdown-item {
+            padding: 0.6rem 1.5rem;
+            transition: all 0.2s;
+            color: var(--dark-color);
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(46, 139, 87, 0.1); /* Use a slight tint of secondary color */
+            color: var(--secondary-color);
+            padding-left: 1.8rem;
+        }
+
+        /* Quiz Specific Styles */
+        .quiz-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .quiz-header {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 2.8rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .quiz-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .question-section {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-item {
+            background-color: var(--light-color);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            text-align: left;
+        }
+
+        .option-item:hover {
+            background-color: #eef2f5;
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .option-item.selected {
+            background-color: #d1e7dd; /* Light green for selected */
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(46, 139, 87, 0.2);
+        }
+
+        .option-item.correct {
+            background-color: #d4edda; /* Bootstrap success green */
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .option-item.incorrect {
+            background-color: #f8d7da; /* Bootstrap danger red */
+            border-color: #dc3545;
+            color: #721c24;
+            font-weight: 600;
+        }
+        
+        .option-item.disabled {
+            pointer-events: none; /* Disable clicks */
+            opacity: 0.8;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .quiz-navigation button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .quiz-navigation button:hover {
+            background-color: #267a4b; /* Slightly darker green */
+            transform: translateY(-2px);
+        }
+
+        .quiz-navigation button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #submitQuiz {
+            background-color: var(--primary-color);
+        }
+
+        #submitQuiz:hover {
+            background-color: #4a495b;
+        }
+
+        .results-section {
+            margin-top: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: var(--light-color);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            display: none; /* Hidden by default */
+        }
+
+        .results-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 25px;
+        }
+
+        .retake-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .retake-btn:hover {
+            background-color: #7a634e;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 80px;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin-right: 12px;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px) rotate(5deg);
+        }
+
+        .copyright {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 991.98px) {
+            body {
+                padding-top: 60px;
+            }
+            .quiz-container {
+                margin: 30px auto;
+                padding: 25px;
+            }
+            .quiz-header {
+                font-size: 2.2rem;
+            }
+            .question-text {
+                font-size: 1.2rem;
+            }
+            .option-item {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+            .quiz-navigation button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            .results-section h3 {
+                font-size: 1.8rem;
+            }
+            .score-display {
+                font-size: 1.5rem;
+            }
+            .retake-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            body {
+                padding-top: 56px;
+            }
+            .quiz-container {
+                margin: 20px 15px;
+                padding: 20px;
+            }
+            .quiz-header {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            .question-number {
+                font-size: 1.1rem;
+            }
+            .question-text {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+            .options-list {
+                gap: 10px;
+            }
+            .option-item {
+                font-size: 0.95rem;
+                padding: 10px 12px;
+            }
+            .quiz-navigation {
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 30px;
+            }
+            .quiz-navigation button {
+                width: 100%;
+            }
+            .footer {
+                padding: 3rem 0 1.5rem;
+            }
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Time<span>Stamps</span> of India</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="timeline.html">Timeline</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="erasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Historical Eras
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="erasDropdown">
+                            <li><a class="dropdown-item" href="ancient.html">Ancient India (3000 BCE - 550 CE)</a></li>
+                            <li><a class="dropdown-item" href="medieval.html">Medieval India (550 CE - 1526 CE)</a></li>
+                            <li><a class="dropdown-item" href="modern.html">Modern India (1526 CE - Present)</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="quiz.html">Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about_india.html">About india </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="quiz-container">
+            <h2 class="quiz-header">Modern India Quiz (1757-1947)</h2>
+            <div id="quiz-area">
+                <div class="question-section" id="question-section">
+                    <p class="question-number">Question <span id="current-question-number">1</span> of <span id="total-questions"></span></p>
+                    <h4 class="question-text" id="question-text"></h4>
+                    <ul class="options-list" id="options-list">
+                        </ul>
+                </div>
+
+                <div class="quiz-navigation">
+                    <button id="prevBtn" disabled>Previous</button>
+                    <button id="nextBtn">Next</button>
+                    <button id="submitQuiz" style="display: none;">Submit Quiz</button>
+                </div>
+            </div>
+
+            <div class="results-section" id="results-section">
+                <h3>Quiz Results</h3>
+                <p class="score-display">You scored: <span id="score"></span> / <span id="total-score"></span></p>
+                <button class="retake-btn" id="retakeQuiz">Retake Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">Time<span>Stamps</span> of India</div>
+                    <p>Preserving and presenting India's historical legacy for future generations through comprehensive, accurate, and engaging content.</p>
+                    <div class="social-icons">
+                        <a href="https://x.com/DeepakBawa2803" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/deepak_.bawa/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/team-dr-93a056375/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Explore</h5>
+                    <ul class="footer-links">
+                        <li><a href="timeline.html">Timeline</a></li>
+                        <li><a href="ancient.html">Ancient Era</a></li>
+                        <li><a href="medieval.html">Medieval Era</a></li>
+                        <li><a href="modern.html">Modern Era</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="about_india.html">About india</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a class="active" href="quiz.html">Quizzes</a></li>
+                        <li><a href="maps.html">Historical Maps</a></li>
+                        <li><a href="documents.html">Primary Sources</a></li>
+                        <li><a href="books.html">Recommended Books</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to receive weekly historical facts and updates.</p>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email" required>
+                            <button class="btn btn-primary btn-custom" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                    <p><i class="fas fa-envelope me-2"></i> contact@teamdr1928@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright text-center">
+               © 2025 MediSentry | Student's Project by Team DR from Chandigarh University
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = [
+                // Questions derived from modern.html content
+                {
+                    question: "Which battle in 1757 marked a decisive turning point in Indian history by establishing British political supremacy in Bengal?",
+                    options: ["Battle of Panipat", "Battle of Buxar", "Battle of Plassey", "Battle of Seringapatam"],
+                    answer: "Battle of Plassey",
+                    topic: "Battle of Plassey"
+                },
+                {
+                    question: "Who led the British East India Company forces in the Battle of Plassey?",
+                    options: ["Lord Dalhousie", "Robert Clive", "Warren Hastings", "Lord Curzon"],
+                    answer: "Robert Clive",
+                    topic: "Battle of Plassey"
+                },
+                {
+                    question: "The Nawab of Bengal who was defeated in the Battle of Plassey was:",
+                    options: ["Mir Jafar", "Tipu Sultan", "Siraj-ud-Daulah", "Murshid Quli Khan"],
+                    answer: "Siraj-ud-Daulah",
+                    topic: "Battle of Plassey"
+                },
+                {
+                    question: "The Battle of Plassey is considered the foundational event of the British Empire in India. True or False?",
+                    options: ["True", "False"],
+                    answer: "True",
+                    topic: "Battle of Plassey"
+                },
+                {
+                    question: "What was the immediate consequence of the Battle of Plassey regarding the British East India Company?",
+                    options: ["It led to the complete withdrawal of the British from India.", "It established French supremacy in Bengal.", "It established British political supremacy in Bengal.", "It resulted in the formation of the Indian National Congress."],
+                    answer: "It established British political supremacy in Bengal.",
+                    topic: "Battle of Plassey"
+                },
+                {
+                    question: "The Indian Rebellion of 1857 is often referred to as:",
+                    options: ["The Great Revolt", "The Sepoy Mutiny", "The First War of Indian Independence", "All of the above"],
+                    answer: "All of the above",
+                    topic: "Indian Rebellion of 1857"
+                },
+                {
+                    question: "Where did the Indian Rebellion of 1857 begin?",
+                    options: ["Delhi", "Lucknow", "Meerut", "Kanpur"],
+                    answer: "Meerut",
+                    topic: "Indian Rebellion of 1857"
+                },
+                {
+                    question: "Which issue primarily sparked the Sepoy Mutiny aspect of the 1857 rebellion?",
+                    options: ["High taxes on farmers", "The introduction of new rifle cartridges greased with animal fat", "British interference in religious festivals", "The construction of railways"],
+                    answer: "The introduction of new rifle cartridges greased with animal fat",
+                    topic: "Indian Rebellion of 1857"
+                },
+                {
+                    question: "What major administrative change occurred in India after the 1857 Rebellion?",
+                    options: ["India became a republic.", "The British East India Company was dissolved, and direct British Crown rule began.", "French colonial rule replaced British rule.", "Princely states gained complete independence."],
+                    answer: "The British East India Company was dissolved, and direct British Crown rule began.",
+                    topic: "Indian Rebellion of 1857"
+                },
+                {
+                    question: "The Indian Rebellion of 1857 led to the beginning of the:",
+                    options: ["Mughal Empire", "Gupta Empire", "British Raj", "Maratha Confederacy"],
+                    answer: "British Raj",
+                    topic: "Indian Rebellion of 1857"
+                },
+                {
+                    question: "Mahatma Gandhi's philosophy of non-violent resistance is known as:",
+                    options: ["Ahinsa", "Swaraj", "Satyagraha", "Purna Swaraj"],
+                    answer: "Satyagraha",
+                    topic: "Mahatma Gandhi"
+                },
+                {
+                    question: "In what year was Mahatma Gandhi born?",
+                    options: ["1857", "1869", "1885", "1905"],
+                    answer: "1869",
+                    topic: "Mahatma Gandhi"
+                },
+                {
+                    question: "Which of the following movements was NOT initiated or led by Mahatma Gandhi?",
+                    options: ["Non-Cooperation Movement", "Salt March", "Quit India Movement", "Swadeshi Movement (1905)"],
+                    answer: "Swadeshi Movement (1905)",
+                    topic: "Mahatma Gandhi"
+                },
+                {
+                    question: "Mahatma Gandhi was assassinated in which year?",
+                    options: ["1947", "1948", "1950", "1952"],
+                    answer: "1948",
+                    topic: "Mahatma Gandhi"
+                },
+                {
+                    question: "Mahatma Gandhi's principles of truth, non-violence, and self-reliance primarily aimed to achieve:",
+                    options: ["Economic prosperity for India", "Military dominance for India", "India's independence from British rule", "Cultural revival in India"],
+                    answer: "India's independence from British rule",
+                    topic: "Mahatma Gandhi"
+                },
+                {
+                    question: "The Indian National Congress (INC) was founded in which city?",
+                    options: ["Calcutta", "Madras", "Bombay", "Delhi"],
+                    answer: "Bombay",
+                    topic: "Indian National Congress"
+                },
+                {
+                    question: "Who was the founder of the Indian National Congress?",
+                    options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Allan Octavian Hume", "Subhas Chandra Bose"],
+                    answer: "Allan Octavian Hume",
+                    topic: "Indian National Congress"
+                },
+                {
+                    question: "In what year was the Indian National Congress founded?",
+                    options: ["1857", "1885", "1905", "1919"],
+                    answer: "1885",
+                    topic: "Indian National Congress"
+                },
+                {
+                    question: "Initially, what was the primary aim of the Indian National Congress?",
+                    options: ["To demand complete independence immediately", "To provide a platform for civic and political dialogue among educated Indians", "To form a parallel government", "To launch armed rebellion"],
+                    answer: "To provide a platform for civic and political dialogue among educated Indians",
+                    topic: "Indian National Congress"
+                },
+                {
+                    question: "Which of these leaders was NOT a prominent figure in the early Indian National Congress or later nationalist movements mentioned in the context?",
+                    options: ["Dadabhai Naoroji", "Surendranath Banerjee", "Aurangzeb", "Sardar Patel"],
+                    answer: "Aurangzeb",
+                    topic: "Indian National Congress"
+                },
+                {
+                    question: "Who announced the Partition of Bengal in 1905?",
+                    options: ["Lord William Bentinck", "Lord Curzon", "Lord Mountbatten", "Lord Dalhousie"],
+                    answer: "Lord Curzon",
+                    topic: "Partition of Bengal"
+                },
+                {
+                    question: "The official reason cited for the Partition of Bengal was:",
+                    options: ["Religious harmony", "Administrative convenience", "Economic development", "Promotion of education"],
+                    answer: "Administrative convenience",
+                    topic: "Partition of Bengal"
+                },
+                {
+                    question: "The Partition of Bengal was widely perceived by Indians as a British strategy to:",
+                    options: ["Promote national unity", "Develop the region economically", "Divide and rule by fostering communal divisions", "Improve administrative efficiency"],
+                    answer: "Divide and rule by fostering communal divisions",
+                    topic: "Partition of Bengal"
+                },
+                {
+                    question: "Which movement was a significant outcome of the Partition of Bengal?",
+                    options: ["Civil Disobedience Movement", "Khilafat Movement", "Swadeshi and Boycott Movements", "Non-Violent Resistance Movement"],
+                    answer: "Swadeshi and Boycott Movements",
+                    topic: "Partition of Bengal"
+                },
+                {
+                    question: "When was the Partition of Bengal annulled?",
+                    options: ["1905", "1907", "1911", "1919"],
+                    answer: "1911",
+                    topic: "Partition of Bengal"
+                },
+                {
+                    question: "The Jallianwala Bagh Massacre took place in which city?",
+                    options: ["Delhi", "Amritsar", "Lahore", "Kolkata"],
+                    answer: "Amritsar",
+                    topic: "Jallianwala Bagh Massacre"
+                },
+                {
+                    question: "In what year did the Jallianwala Bagh Massacre occur?",
+                    options: ["1905", "1911", "1919", "1930"],
+                    answer: "1919",
+                    topic: "Jallianwala Bagh Massacre"
+                },
+                {
+                    question: "Who commanded the British troops during the Jallianwala Bagh Massacre?",
+                    options: ["Lord Ripon", "General Reginald Dyer", "Lord Linlithgow", "Lord Chelmsford"],
+                    answer: "General Reginald Dyer",
+                    topic: "Jallianwala Bagh Massacre"
+                },
+                {
+                    question: "The crowd at Jallianwala Bagh had assembled for what purpose, besides protesting the Rowlatt Act?",
+                    options: ["A political rally", "A religious festival", "A trade fair", "A military parade"],
+                    answer: "A religious festival",
+                    topic: "Jallianwala Bagh Massacre"
+                },
+                {
+                    question: "What was the Dandi March also known as?",
+                    options: ["The Non-Cooperation Movement", "The Civil Disobedience Movement", "The Salt Satyagraha", "The Quit India Movement"],
+                    answer: "The Salt Satyagraha",
+                    topic: "Dandi March"
+                },
+                {
+                    question: "The Dandi March was led by Mahatma Gandhi against which British monopoly?",
+                    options: ["Sugar monopoly", "Textile monopoly", "Salt monopoly", "Opium monopoly"],
+                    answer: "Salt monopoly",
+                    topic: "Dandi March"
+                },
+                {
+                    question: "When did the Dandi March begin?",
+                    options: ["January 26, 1930", "March 12, 1930", "August 8, 1942", "April 13, 1919"],
+                    answer: "March 12, 1930",
+                    topic: "Dandi March"
+                },
+                {
+                    question: "The Dandi March aimed to defy which British law?",
+                    options: ["The Rowlatt Act", "The Arms Act", "The Salt Act", "The Vernacular Press Act"],
+                    answer: "The Salt Act",
+                    topic: "Dandi March"
+                },
+                {
+                    question: "What was the primary mode of protest during the Dandi March?",
+                    options: ["Armed rebellion", "Boycott of British goods", "Nonviolent civil disobedience through illegal salt production", "Hunger strike"],
+                    answer: "Nonviolent civil disobedience through illegal salt production",
+                    topic: "Dandi March"
+                },
+                {
+                    question: "When was the Quit India Movement launched by Mahatma Gandhi?",
+                    options: ["1930", "1935", "1942", "1945"],
+                    answer: "1942",
+                    topic: "Quit India Movement"
+                },
+                {
+                    question: "The Quit India Movement demanded:",
+                    options: ["Limited self-government", "Immediate end to British rule in India", "Greater Indian representation in British Parliament", "Economic reforms"],
+                    answer: "Immediate end to British rule in India",
+                    topic: "Quit India Movement"
+                },
+                {
+                    question: "The call for 'Quit India' was made at a session of which committee?",
+                    options: ["Muslim League", "Indian National Congress", "Forward Bloc", "Communist Party of India"],
+                    answer: "All-India Congress Committee",
+                    topic: "Quit India Movement"
+                },
+                {
+                    question: "What was a significant outcome of the Quit India Movement, despite British repression?",
+                    options: ["It led to immediate independence.", "It strengthened British resolve to stay in India.", "It demonstrated the Indian people's unwavering resolve for independence.", "It resulted in a new round table conference."],
+                    answer: "It demonstrated the Indian people's unwavering resolve for independence.",
+                    topic: "Quit India Movement"
+                },
+                {
+                    question: "In which year did India gain independence from British rule?",
+                    options: ["1930", "1942", "1945", "1947"],
+                    answer: "1947",
+                    topic: "Indian Independence and Partition"
+                },
+                {
+                    question: "On what date did India gain independence?",
+                    options: ["January 26, 1947", "August 15, 1947", "October 2, 1947", "December 12, 1947"],
+                    answer: "August 15, 1947",
+                    topic: "Indian Independence and Partition"
+                },
+                {
+                    question: "The partition of British India was based on which theory?",
+                    options: ["The One-Nation Theory", "The Two-Nation Theory", "The Dominion Status Theory", "The Self-Rule Theory"],
+                    answer: "The Two-Nation Theory",
+                    topic: "Indian Independence and Partition"
+                },
+                {
+                    question: "Who became India's first Prime Minister after independence?",
+                    options: ["Sardar Vallabhbhai Patel", "Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose"],
+                    answer: "Jawaharlal Nehru",
+                    topic: "Indian Independence and Partition"
+                },
+                {
+                    question: "The Partition of India led to:",
+                    options: ["A period of great peace and harmony", "One of the largest mass migrations in human history accompanied by violence", "The immediate formation of a united subcontinent", "Economic boom in both new nations"],
+                    answer: "One of the largest mass migrations in human history accompanied by violence",
+                    topic: "Indian Independence and Partition"
+                },
+            ];
+
+            let currentQuestionIndex = 0;
+            let userAnswers = new Array(questions.length).fill(null);
+            let score = 0;
+            let quizSubmitted = false;
+
+            const questionTextElement = document.getElementById('question-text');
+            const optionsListElement = document.getElementById('options-list');
+            const currentQuestionNumberElement = document.getElementById('current-question-number');
+            const totalQuestionsElement = document.getElementById('total-questions');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitQuizBtn = document.getElementById('submitQuiz');
+            const quizArea = document.getElementById('quiz-area');
+            const resultsSection = document.getElementById('results-section');
+            const scoreDisplay = document.getElementById('score');
+            const totalScoreDisplay = document.getElementById('total-score');
+            const retakeQuizBtn = document.getElementById('retakeQuiz');
+
+            totalQuestionsElement.textContent = questions.length;
+
+            function loadQuestion() {
+                const question = questions[currentQuestionIndex];
+                questionTextElement.textContent = question.question;
+                optionsListElement.innerHTML = '';
+                currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+
+                question.options.forEach((option, index) => {
+                    const li = document.createElement('li');
+                    li.classList.add('option-item');
+                    li.textContent = option;
+                    li.dataset.index = index;
+                    if (userAnswers[currentQuestionIndex] === option) {
+                        li.classList.add('selected');
+                    }
+                    if (quizSubmitted) {
+                        li.classList.add('disabled');
+                        if (option === question.answer) {
+                            li.classList.add('correct');
+                        } else if (option === userAnswers[currentQuestionIndex] && option !== question.answer) {
+                            li.classList.add('incorrect');
+                        }
+                    } else {
+                        li.addEventListener('click', () => selectOption(option, li));
+                    }
+                    optionsListElement.appendChild(li);
+                });
+
+                updateNavigationButtons();
+            }
+
+            function selectOption(selectedOption, selectedElement) {
+                // Remove 'selected' class from all options for the current question
+                Array.from(optionsListElement.children).forEach(option => {
+                    option.classList.remove('selected');
+                });
+                // Add 'selected' class to the clicked option
+                selectedElement.classList.add('selected');
+                userAnswers[currentQuestionIndex] = selectedOption;
+            }
+
+            function updateNavigationButtons() {
+                prevBtn.disabled = currentQuestionIndex === 0;
+                nextBtn.disabled = currentQuestionIndex === questions.length - 1;
+
+                if (currentQuestionIndex === questions.length - 1 && !quizSubmitted) {
+                    submitQuizBtn.style.display = 'inline-block';
+                    nextBtn.style.display = 'none';
+                } else {
+                    submitQuizBtn.style.display = 'none';
+                    nextBtn.style.display = 'inline-block';
+                }
+
+                if (quizSubmitted) {
+                    prevBtn.disabled = true;
+                    nextBtn.disabled = true;
+                    submitQuizBtn.style.display = 'none';
+                }
+            }
+
+            function navigateQuestions(direction) {
+                if (direction === 'next' && currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                } else if (direction === 'prev' && currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                }
+                loadQuestion();
+            }
+
+            function calculateScore() {
+                score = 0;
+                questions.forEach((question, index) => {
+                    if (userAnswers[index] === question.answer) {
+                        score++;
+                    }
+                });
+                quizSubmitted = true;
+                displayResults();
+            }
+
+            function displayResults() {
+                quizArea.style.display = 'none';
+                resultsSection.style.display = 'block';
+                scoreDisplay.textContent = score;
+                totalScoreDisplay.textContent = questions.length;
+
+                // Reload the questions to show correct/incorrect answers
+                currentQuestionIndex = 0; // Start from the first question to review
+                loadQuestion(); // This will apply correct/incorrect styling since quizSubmitted is true
+                updateNavigationButtons(); // Disable navigation
+            }
+
+            function resetQuiz() {
+                currentQuestionIndex = 0;
+                userAnswers = new Array(questions.length).fill(null);
+                score = 0;
+                quizSubmitted = false;
+                quizArea.style.display = 'block';
+                resultsSection.style.display = 'none';
+                loadQuestion();
+            }
+
+            prevBtn.addEventListener('click', () => navigateQuestions('prev'));
+            nextBtn.addEventListener('click', () => navigateQuestions('next'));
+            submitQuizBtn.addEventListener('click', calculateScore);
+            retakeQuizBtn.addEventListener('click', resetQuiz);
+
+            // Initial load
+            loadQuestion();
+
+            // Navbar scroll effect (consistent with other pages)
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar-custom');
+                if (window.scrollY > 50) {
+                    navbar.style.padding = '0.5rem 1rem';
+                    navbar.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.15)';
+                } else {
+                    navbar.style.padding = '0.8rem 1rem';
+                    navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

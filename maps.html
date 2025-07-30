@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Maps | TimeStamps of India</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3a5a78; /* Consistent with index.html */
+            --secondary-color: #e67e22; /* Vibrant orange */
+            --accent-color: #2ecc71;
+            --light-color: #f9f9f9;
+            --dark-color: #333;
+            --text-color: #444;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 70px; /* Default padding for fixed navbar on larger screens */
+            overflow-x: hidden;
+        }
+        
+        /* Custom Navbar */
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+            z-index: 1000; /* Ensure navbar is on top */
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: white !important;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.2rem;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1rem;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        
+        .dropdown-item {
+            padding: 0.6rem 1.5rem;
+            transition: all 0.2s;
+            color: var(--dark-color);
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(230, 126, 34, 0.1);
+            color: var(--secondary-color);
+            padding-left: 1.8rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), 
+                        url('https://images.unsplash.com/photo-1517430816045-cd4969f1604d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover; /* Image for maps theme */
+            height: 60vh; 
+            min-height: 400px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            text-align: center; 
+            animation: fadeInZoom 1.5s ease-out;
+            padding-top: 20px; 
+            padding-bottom: 20px; 
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(58, 90, 120, 0.4), rgba(230, 126, 34, 0.4));
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 15px;
+            max-width: 900px; 
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem; 
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            animation: slideInUp 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        .hero-text {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            animation: slideInUp 1s ease-out 0.7s forwards; 
+            opacity: 0;
+            line-height: 1.6;
+            padding: 0 10px; 
+            text-align: center; 
+        }
+        
+        /* Main Content Section */
+        .maps-content-section {
+            background-color: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .maps-content-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .maps-content-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .maps-content-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .maps-content-section p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .maps-content-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .map-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .map-item {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+
+        .map-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .map-item img {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover; /* Ensures image covers the area */
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .map-item h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            padding: 0 15px;
+        }
+
+        .map-item p {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            padding: 0 15px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 80px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .social-icons {
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            margin-right: 12px;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px) rotate(5deg);
+        }
+        
+        .copyright {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInZoom {
+            from {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1199.98px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero-text {
+                font-size: 1.1rem;
+            }
+            .maps-content-section h2 {
+                font-size: 2.2rem;
+            }
+            .maps-content-section h3 {
+                font-size: 1.6rem;
+            }
+            .maps-content-section p {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 991.98px) {
+            body {
+                padding-top: 60px; 
+            }
+            .navbar-collapse.show {
+                background-color: var(--primary-color); 
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-section {
+                height: auto; 
+                min-height: 380px; 
+                padding-top: 100px; 
+                padding-bottom: 50px; 
+            }
+            .hero-text {
+                font-size: 1rem;
+            }
+            .maps-content-section {
+                margin-top: 30px;
+                margin-bottom: 30px;
+                padding: 30px;
+            }
+            .maps-content-section h2 {
+                font-size: 2rem;
+            }
+            .maps-content-section h3 {
+                font-size: 1.4rem;
+            }
+            .maps-content-section p {
+                font-size: 0.95rem;
+            }
+            .map-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            .navbar-nav .dropdown-menu .dropdown-item {
+                padding: 0.75rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            body {
+                padding-top: 56px; 
+            }
+            .navbar-brand {
+                font-size: 1.7rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-section {
+                min-height: 320px; 
+                padding-top: 80px; 
+                padding-bottom: 40px; 
+            }
+            .hero-text {
+                font-size: 0.95rem;
+            }
+            .maps-content-section {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                padding: 20px;
+            }
+            .maps-content-section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            .maps-content-section h3 {
+                font-size: 1.2rem;
+            }
+            .maps-content-section p {
+                font-size: 0.9rem;
+            }
+            .map-gallery {
+                grid-template-columns: 1fr; /* Stack on very small screens */
+                gap: 15px;
+            }
+            .map-item img {
+                height: 180px;
+            }
+            .footer {
+                padding: 3rem 0 1.5rem;
+            }
+            .footer-logo {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .hero-title {
+                font-size: 1.8rem; 
+                white-space: normal; 
+                overflow: visible; 
+                text-overflow: unset; 
+            }
+            .hero-section {
+                min-height: 250px; 
+                padding-top: 70px; 
+                padding-bottom: 30px; 
+            }
+            .hero-text {
+                font-size: 0.88rem;
+            }
+            .maps-content-section {
+                padding: 15px;
+            }
+            .maps-content-section h2 {
+                font-size: 1.6rem;
+            }
+            .maps-content-section h3 {
+                font-size: 1rem;
+            }
+            .maps-content-section p {
+                font-size: 0.85rem;
+            }
+            .social-icons a {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+                margin-right: 8px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 1.6rem; 
+            }
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            .maps-content-section h2 {
+                font-size: 1.4rem;
+            }
+            .maps-content-section h3 {
+                font-size: 0.9rem;
+            }
+            .hero-section {
+                min-height: 250px; 
+                padding-top: 60px; 
+                padding-bottom: 25px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Time<span>Stamps</span> of India</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="timeline.html">Timeline</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="erasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Historical Eras
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="erasDropdown">
+                            <li><a class="dropdown-item" href="ancient.html">Ancient India (3000 BCE - 550 CE)</a></li>
+                            <li><a class="dropdown-item" href="medieval.html">Medieval India (550 CE - 1526 CE)</a></li>
+                            <li><a class="dropdown-item" href="modern.html">Modern India (1526 CE - Present)</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="quiz.html">Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="maps.html">Historical Maps</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Historical Maps of India</h1>
+                <p class="hero-text">
+                    Maps are not just geographical representations; they are historical documents, reflecting political boundaries, trade routes, cultural influences, and the changing understanding of the world through time. Explore how India has been depicted across centuries.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container py-5">
+        <section id="maps-content" class="maps-content-section">
+            <h2>The Evolving Geography of a Civilization</h2>
+            <p>
+                Historical maps of India offer a unique lens through which to understand the subcontinent's dynamic past. From ancient cartographic traditions that integrated spiritual and mythological elements to the precise, scientific surveys conducted during colonial times, each map tells a story of power, knowledge, and exploration. They reveal the rise and fall of empires, the ebb and flow of cultural exchange, and the gradual unveiling of India's vast and diverse landscapes to the wider world.
+            </p>
+
+            <h3>Early Indian Cartography and Ancient World Maps</h3>
+            <p>
+                While detailed geographical maps in the modern sense were less prevalent in ancient India, early Indian texts and astronomical works contained sophisticated geographical knowledge. Concepts of the world, often centered around Mount Meru, were depicted in cosmological diagrams. Travelers' accounts, like those of Fa-Hien and Xuanzang, also provide valuable geographical insights. Early European and Arab maps, though often inaccurate, began to place India on the global stage, reflecting trade routes and limited coastal knowledge.
+            </p>
+            <p>
+                These early maps were often influenced by religious and philosophical beliefs, depicting the world not just as a physical space but as a sacred and symbolic one. They highlight the interconnectedness of knowledge systems in ancient civilizations, where geography, astronomy, and spirituality were often intertwined.
+            </p>
+
+            <h3>The Mughal Era and Indigenous Mapping</h3>
+            <p>
+                During the Mughal Empire (16th to 19th centuries), mapping became more sophisticated, driven by administrative and military needs. Mughal chroniclers and administrators produced detailed provincial maps and revenue surveys. While not always to scale in the European sense, these maps provided valuable information on land use, administrative divisions, and important cities. Indigenous mapping traditions also continued, often focusing on local routes, pilgrimage sites, and regional kingdoms.
+            </p>
+            <p>
+                These maps provide crucial insights into the administrative structure, economic activities, and territorial claims of the Mughal state, as well as the local knowledge and priorities of various regional powers. They show a transition towards more practical and detailed geographical representations.
+            </p>
+
+            <h3>Colonial Mapping: Precision and Control</h3>
+            <p>
+                The arrival of European powers, particularly the British East India Company and later the British Raj, revolutionized mapping in India. Driven by commercial interests, military strategy, and administrative control, the British undertook extensive and systematic surveys. The Great Trigonometrical Survey of India, initiated in the late 18th century, was a monumental undertaking that precisely mapped the entire subcontinent, establishing baselines and triangulation networks across vast distances.
+            </p>
+            <p>
+                This period saw the creation of highly accurate topographical, administrative, and thematic maps. While these maps provided invaluable geographical data, they also served as tools of colonial power, facilitating resource extraction, military movements, and the imposition of centralized administration. They fundamentally changed the way India was perceived and governed, moving from a collection of diverse regions to a unified, mapped territory under a single authority.
+            </p>
+
+            <h3>Post-Independence and Modern Cartography</h3>
+            <p>
+                After India gained independence in 1947, the newly formed nation inherited a rich cartographic legacy. The Survey of India, established in 1767, continued its work, now focusing on national development, resource management, and border demarcation. Modern cartography in India utilizes advanced technologies like satellite imagery, Geographic Information Systems (GIS), and remote sensing to create highly detailed and dynamic maps for various purposes, from urban planning to environmental monitoring.
+            </p>
+            <p>
+                Today, maps continue to play a vital role in India's growth and understanding of its own complex geography and history. They are essential for infrastructure development, disaster management, and preserving the nation's rich heritage.
+            </p>
+
+            <h3>Notable Historical Map Examples (Placeholders)</h3>
+            <p>
+                Below are some examples of the types of historical maps that illustrate India's journey through time. While actual interactive maps or high-resolution images are not embedded here, these placeholders represent the kind of visual content that would enhance understanding.
+            </p>
+
+            <div class="map-gallery">
+                <div class="map-item">
+                    <img src="https://placehold.co/600x400/8c735d/ffffff?text=Ancient+Cosmological+Map" alt="Ancient Indian Cosmological Map">
+                    <h4>Ancient Indian Cosmological Map</h4>
+                    <p>Early conceptualizations of the world, often integrating mythological and spiritual elements.</p>
+                </div>
+                <div class="map-item">
+                    <img src="https://placehold.co/600x400/5b5a70/ffffff?text=Mughal+Empire+Map" alt="Mughal Empire Administrative Map">
+                    <h4>Mughal Empire Administrative Map</h4>
+                    <p>Depicting provincial divisions and key cities during the height of Mughal rule.</p>
+                </div>
+                <div class="map-item">
+                    <img src="https://placehold.co/600x400/2e8b57/ffffff?text=British+Survey+Map" alt="British Great Trigonometrical Survey Map">
+                    <h4>British Great Trigonometrical Survey Map</h4>
+                    <p>A section from the highly accurate colonial surveys, showing topographical details.</p>
+                </div>
+                <div class="map-item">
+                    <img src="https://placehold.co/600x400/e67e22/ffffff?text=Princely+States+Map" alt="Map of Indian Princely States">
+                    <h4>Map of Indian Princely States (Pre-1947)</h4>
+                    <p>Illustrates the complex political landscape before India's independence and integration.</p>
+                </div>
+                <div class="map-item">
+                    <img src="https://placehold.co/600x400/3a5a78/ffffff?text=Trade+Routes+Map" alt="Ancient Indian Trade Routes Map">
+                    <h4>Ancient Indian Trade Routes Map</h4>
+                    <p>Shows major land and sea trade routes connecting India with the rest of the world.</p>
+                </div>
+                <div class="map-item">
+                    <img src="https://placehold.co/600x400/8c735d/ffffff?text=Modern+India+Political+Map" alt="Modern India Political Map">
+                    <h4>Modern India Political Map</h4>
+                    <p>Contemporary political divisions of independent India, reflecting its current geography.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-logo">Time<span>Stamps</span> of India</div>
+                    <p>Preserving and presenting India's historical legacy for future generations through comprehensive, accurate, and engaging content.</p>
+                    <div class="social-icons">
+                        <a href="https://x.com/DeepakBawa2803" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/deepak_.bawa/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/team-dr-93a056375/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Explore</h5>
+                    <ul class="footer-links">
+                        <li><a href="timeline.html">Timeline</a></li>
+                        <li><a href="ancient.html">Ancient Era</a></li>
+                        <li><a href="medieval.html">Medieval Era</a></li>
+                        <li><a href="modern.html">Modern Era</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="quiz.html">Quizzes</a></li>
+                        <li><a class="active" href="maps.html">Historical Maps</a></li>
+                        <li><a href="documents.html">Primary Sources</a></li>
+                        <li><a href="books.html">Recommended Books</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to receive weekly historical facts and updates.</p>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email" required>
+                            <button class="btn btn-primary btn-custom" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                    <p><i class="fas fa-envelope me-2"></i> contact@teamdr1928@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright text-center">
+               © 2025 MediSentry | Student's Project by Team DR from Chandigarh University
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar-custom');
+                if (window.scrollY > 50) {
+                    navbar.style.padding = '0.5rem 1rem';
+                    navbar.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.15)';
+                } else {
+                    navbar.style.padding = '0.8rem 1rem';
+                    navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                }
+            });
+
+            // Hero title and text animation
+            const heroTitle = document.querySelector('.hero-title');
+            const heroText = document.querySelector('.hero-text');
+
+            if (heroTitle) {
+                heroTitle.style.animation = 'slideInUp 1s ease-out 0.5s forwards';
+            }
+            if (heroText) {
+                heroText.style.animation = 'slideInUp 1s ease-out 0.7s forwards';
+            }
+        });
+    </script>
+</body>
+</html>
